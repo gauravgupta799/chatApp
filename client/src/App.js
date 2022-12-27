@@ -1,9 +1,17 @@
+import {BrowserRouter,Routes,Route } from "react-router-dom"
+import Chat from "./pages/Chat";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
-    <div >
-      <h2>App</h2>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/register" element={<Register/>} />
+        <Route path ="/login" element={<Login/>} />
+        <Route  exact path="/" element={<Chat/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
