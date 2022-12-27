@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import styled from "styled-components";
 import {Link,useNavigate} from "react-router-dom";
 import logo from "../assets/logo.png"
@@ -16,11 +16,17 @@ const Register = () => {
         confirmPassword:"",
     })
     const {username, email, password, confirmPassword} = newUser;
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    useEffect(()=>{
+        if(localStorage.getItem("token")){
+            navigate("/")
+        }
+    },[]);
+
     const handleChange =(e)=>{
         setNewUser({...newUser, [e.target.name]:e.target.value})
-
     }
+    
     const handleValidation =()=>{
         const {password, confirmPassword} = newUser;
         if(password !== confirmPassword){
@@ -71,7 +77,7 @@ const Register = () => {
                         value={username} 
                         placeholder='Username' 
                         onChange={handleChange}
-                        required
+                        // required
                      />
 					<input 
                         type='email' 
@@ -79,7 +85,7 @@ const Register = () => {
                         value={email} 
                         placeholder='Email' 
                         onChange={handleChange}
-                        required
+                        // required
                     />
 					<input
 						type='password'
@@ -87,7 +93,7 @@ const Register = () => {
 						value={password}
 						placeholder='Password'
                         onChange={handleChange}
-                        required
+                        // required
 					/>
 					<input
 						type='password'
@@ -95,7 +101,7 @@ const Register = () => {
 						value={confirmPassword}
 						placeholder='Confirm Password'
                         onChange={handleChange}
-                        required
+                        // required
 					/>
                     <button type= "submit">Create User</button>
                     <span>Already have an account?

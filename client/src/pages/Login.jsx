@@ -1,11 +1,11 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import styled from "styled-components";
 import {Link,useNavigate} from "react-router-dom";
 import logo from "../assets/logo.png"
 import axios from "axios";
 import {ToastContainer} from "react-toastify";
 import {toastError, toastSuccess} from "../toastify";
-import {registeRoute,loginRoute} from "../utils/ApiRoutes";
+import {loginRoute} from "../utils/ApiRoutes";
 
 
 const Login = () => {
@@ -16,12 +16,22 @@ const Login = () => {
     const {email, password} = user;
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        if(localStorage.getItem("token")){
+            navigate("/")
+        }
+    },[])
+
     const handleChange =(e)=>{
         setUser({...user, [e.target.name]:e.target.value})
-
     }
     const handleValidation =()=>{
-
+        const {email, password} = user;
+        if(email === "" || password === ""){
+            toastError("Email and Password are required.")
+            return false;
+        }
+        return true;
     }
 
     const handleSubmit = async(e)=>{
@@ -30,15 +40,14 @@ const Login = () => {
             const {data} = await axios.post(loginRoute,{
                 email, password
             });
-            // if(data.status === false){
-            //     toastError(data.msg);
-            // }
-            // if(data.status === 200){
-            //     toastSuccess(data.msg)
-            //     localStorage.setItem("token", JSON.stringify(data.token))
-            //     navigate("/")
-            // }
-            // console.log(data.status);
+            if(data.status === false){
+                toastError(data.message);
+            }
+            if(data.status === 200){
+                toastSuccess(data.message)
+                localStorage.setItem("token", JSON.stringify(data.accessToken))
+                navigate('/')
+            }
         }
     }
    
@@ -56,7 +65,6 @@ const Login = () => {
                         value={email} 
                         placeholder='Email' 
                         onChange={handleChange}
-                        required
                     />
 					<input
 						type='password'
@@ -64,10 +72,9 @@ const Login = () => {
 						value={password}
 						placeholder='Password'
                         onChange={handleChange}
-                        required
 					/>
                     <button type= "submit">Login</button>
-                    <span>New User?
+                    <span>Don't have an account?
                         <Link to ="/register">
                             Register
                         </Link>
