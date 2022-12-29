@@ -51,13 +51,14 @@ const Register = () => {
             const {data} = await axios.post(registeRoute,{
                 username,email, password
             });
+            console.log(data)
             if(data.status === false){
                 toastError(data.msg);
             }
             if(data.status === 200){
                 toastSuccess(data.msg)
                 localStorage.setItem("chatApp-User", JSON.stringify(data.user))
-                navigate("/")
+                navigate("/login")
             }
             console.log(data.status);
         }

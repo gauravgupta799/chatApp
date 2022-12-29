@@ -12,7 +12,7 @@ const register = async (req,res) => {
         emailCheck && res.status(409).json({msg:"Email already exits",status:false})
         const salt = await bcrypt.genSalt(10);
         const hashPass = await bcrypt.hash(password, salt);
-        const user = await new User({username,email, password:hashPass});
+        const user = await new User({username,email, password:hashPass}).save();
         res.status(200).json({user, status:200, msg:"User created successfully!"});
     }catch (error) {
         res.status(500).json({ message: err.message });
@@ -29,12 +29,14 @@ const login = async (req, res) => {
         if(validatePass){
             const accessToken = jwt.sign({id:user._id, email:user.email}, "secret-key", {expiresIn:'24h'});
             const {password, ...otherInfo} = user._doc;
-            res.status(200).json({
-                status:200,
-                message:"You've logged in successfully!",
-                accessToken:accessToken,
-                user:otherInfo
-            })
+            res.status(200).json(
+                {  
+                    ...otherInfo, 
+                    status:200,
+                    message:"You've logged in successfully!",
+                    accessToken:accessToken,
+                }
+            )
         }else{
             res.status(403).json({message:"Invalid password or email.",status:false})
             console.log({message:"Invalid password or email.",status:false})
@@ -61,6 +63,17 @@ const setAvatar = async (req, res,next) => {
     } catch (ex) {
         next(ex);
     }
+}
+
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find({_id:{$ne:req.params.id}}).select([
+            "email", "username","avatarImage","id",
+        ]);
+        return res.status(200).json(users)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
 
 }
-module.exports = {register,login,setAvatar}
+module.exports = {register,login,setAvatar,getAllUsers}

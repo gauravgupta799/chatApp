@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import loader from "../assets/loader.gif";
 import axios from "axios";
 import { Buffer } from "buffer";
@@ -41,16 +41,18 @@ const SetAvata = () => {
         if(selectedAvatar === undefined){
             toastError("Please select an avatar.");
         }else{
-            const {user} = await JSON.parse(localStorage.getItem("chat-user"));
+            const user = await JSON.parse(localStorage.getItem("chat-user"));
+            // console.log("user", user)
             const {data} = await axios.post(`${setAvatarRoute}/${user._id}`,{
                 image:avatars[selectedAvatar],
             });
+            // console.log(data)
             if(data.isSet){
                 user.isAvatarImageSet= true;
                 user.avatarImage = data.image;
                 localStorage.setItem("chat-user",JSON.stringify(user))
                 toastSuccess("Your avatar has been successfully set up!");
-                // navigate("/")
+                navigate("/")
             }else{
                 toastError("Error setting avatar. Please try again!")
             }

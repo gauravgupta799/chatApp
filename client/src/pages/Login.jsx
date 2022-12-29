@@ -37,9 +37,10 @@ const Login = () => {
     const handleSubmit = async(e)=>{
         e.preventDefault(); 
         if(handleValidation()){
-            const {data} = await axios.post(loginRoute,{
+            const {data}= await axios.post(loginRoute,{
                 email, password
             });
+            console.log(data._id);
             if(data.status === false){
                 toastError(data.message);
             }
