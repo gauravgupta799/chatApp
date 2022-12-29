@@ -17,7 +17,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(localStorage.getItem("token")){
+        if(localStorage.getItem("chat-user")){
             navigate("/")
         }
     },[])
@@ -45,7 +45,7 @@ const Login = () => {
             }
             if(data.status === 200){
                 toastSuccess(data.message)
-                localStorage.setItem("token", JSON.stringify(data.accessToken))
+                localStorage.setItem("chat-user", JSON.stringify(data))
                 navigate('/')
             }
         }

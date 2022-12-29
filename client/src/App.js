@@ -5,13 +5,14 @@ import Register from "./pages/Register";
 import SetAvata from "./pages/SetAvata";
 
 function App() {
+  // const token = localStorage.getItem('token');
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Chat/>} />
+        <Route path="/setAvata" element={<SetAvata/>} />
         <Route path="/register" element={<Register/>} />
         <Route path ="/login" element={<Login/>} />
-        <Route path="/setAvata" element={<SetAvata/>} />
       </Routes>
  
     </BrowserRouter>
