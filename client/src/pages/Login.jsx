@@ -47,7 +47,7 @@ const Login = () => {
             if(data.status === 200){
                 toastSuccess(data.message)
                 localStorage.setItem("chat-user", JSON.stringify(data))
-                navigate('/')
+                navigate('/setAvata')
             }
         }
     }

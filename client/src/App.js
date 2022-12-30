@@ -5,7 +5,7 @@ import Register from "./pages/Register";
 import SetAvata from "./pages/SetAvata";
 
 function App() {
-  // const token = localStorage.getItem('token');
+  const token = localStorage.getItem('chat-user');
   return (
     <BrowserRouter>
       <Routes>
