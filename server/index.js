@@ -5,6 +5,7 @@ require("dotenv").config()
 const port = process.env.PORT
 const mongoUrl = process.env.MONGODB_URL;
 const userRoutes = require("./routes/userRoute")
+const messageRoutes = require("./routes/messageRoute");
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", userRoutes)
+app.use("/api/messages", messageRoutes)
 
 mongoose.connect(mongoUrl, {useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
     console.log("Database connected successfully!")
