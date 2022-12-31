@@ -9,9 +9,10 @@ body{
   max-height:100vh;
   max-width:100vw;
   overflow: hidden;
+  /* background-color: #fff; */
+   /* background-color: #131324; */
 
 }
-
 body,button,input {
   font-family: 'Inter', sans-serif;
   font-family: 'Josefin Sans', sans-serif;

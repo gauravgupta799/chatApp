@@ -25,8 +25,8 @@ const Contacts = ({contacts, currentUser,changeChat}) => {
             currentUserImage && currentUserName && (
                 <Container>
                     <div className="brand">
-                        <img src ={Logo} alt="logo"/>
-                        <h3>snappy</h3>
+                            <img src ={Logo} alt="logo"/>
+                            <h3>snappy</h3>
                     </div>
                     <div className="contacts">
                         {
@@ -78,19 +78,18 @@ const Container = styled.div`
     background-color: #080420;
     overflow: hidden;
    .brand{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap:9.5rem;
-     
-    img{
-        height: 3rem;
-        border-radius: 50%;
-    }
-    h3{
-        color:white;
-        text-transform: uppercase;
-    }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:0.5rem;
+        img{
+              height: 3rem;
+              border-radius: 50%;
+          }
+        h3{
+            color:white;
+            text-transform: uppercase;
+        }
    } 
    .contacts{
        display:flex;

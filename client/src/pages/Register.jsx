@@ -132,7 +132,8 @@ const FormContainer = styled.div`
         justify-content: center;
         gap:1rem;
         img{
-            height: 5rem;
+            height: 4rem;
+            border-radius:50%;
         }
         h1{
             color:white;

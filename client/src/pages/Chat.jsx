@@ -1,12 +1,12 @@
-import React,{useState, useEffect } from 'react'
+import React,{useState, useEffect, useRef } from 'react'
 import styled from "styled-components";
 import {useNavigate } from "react-router-dom";
-import { allUsersRoute } from "../utils/ApiRoutes";
+import { allUsersRoute, host } from "../utils/ApiRoutes";
 import axios from "axios";
 import Contacts from '../components/Contacts';
 import Welcome from '../components/Welcome';
 import ChatContainer from '../components/ChatContainer';
-
+import { io } from "socket.io-client";
 
 const Chat = () => {
   const [contacts, setContacts] = useState([]);
@@ -14,6 +14,7 @@ const Chat = () => {
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate();
+  const socket = useRef();
 
   useEffect(() => {
     async function getChatUser(){
@@ -28,11 +29,17 @@ const Chat = () => {
   },[])
 
   useEffect(() => {
+      if(currentUser){
+        socket.current = io(host);
+        socket.current.emit("add-user", currentUser._id);
+      }
+  },[currentUser]);
+
+  useEffect(() => {
     async function checkCurrentUser(){
       if(currentUser){
         if(currentUser.isAvatarImageSet){
           const {data} = await axios.get(`${allUsersRoute}/${currentUser._id}`)
-          // console.log("Data", data);
           setContacts(data);
         }else{
           navigate("/setAvata")
@@ -46,12 +53,9 @@ const Chat = () => {
     setCurrentChat(chat)
   }
 
-  console.log("Contacts", contacts);
-  console.log("currentChat", currentChat);
-  console.log("currentUser", currentUser);
   return (
     <Container>
-        <div className="Container">
+        <div className="Container" >
          <Contacts 
            contacts ={contacts} 
            currentUser={currentUser}
@@ -63,6 +67,7 @@ const Chat = () => {
               <ChatContainer 
               currentChat={currentChat}
               currentUser ={currentUser} 
+              socket = {socket}
               />
             )
           }   
@@ -78,13 +83,13 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color:#222;
   gap:1rem;
-  background-color: #131324;
-  color:white;
   .Container{
     height: 85vh;
     width: 85vw;
     background-color:#00000076;
+    color:white;
     border-radius:4px;
     display: grid;
     grid-template-columns: 25% 75%;

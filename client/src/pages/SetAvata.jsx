@@ -7,6 +7,7 @@ import { Buffer } from "buffer";
 import { ToastContainer } from "react-toastify";
 import { toastError, toastSuccess } from "../toastify";
 import { setAvatarRoute } from "../utils/ApiRoutes";
+import Loader from "../components/Loader/Loader";
 
 const api ="https://api.multiavatar.com/337453";
 // const api ="https://avatars.dicebear.com/api"
@@ -64,45 +65,40 @@ const SetAvata = () => {
     // console.log("SA", selectedAvatar)
 	return (
 		<>
-            {
-                loading ? (
-                    <>
-                        <LoadingContainer>
-                            <img src ={loader} alt="loafing"/>
-                        </LoadingContainer>
-                    </>
+            { loading ? (
+                <Loader/>
                 ) :(
-                    <>
-                        <Container>
-                            <div className='title-container'>
-                                <h1>Pick an avatar as your profile picture.</h1>
-                            </div>
-                            <div className='avatars'>
-                                {avatars.map((avatar, index) => {
-                                    return (
-                                        <div
-                                            key={index}
-                                            className={` avatar ${
-                                                selectedAvatar === index ? "selected" : " "
-                                            }`}
-                                        >
-                                            <img
-                                                src={`data:image/svg+xml;base64,${avatar}`}
-                                                alt='avatar'
-                                                onClick={() => setSelectedAvatar(index)}
-                                            />
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                            <button className='setProfile-btn'
-                                onClick={setProfilePircture}
-                            >
-                                Set as Profile Picture
-                            </button>
-                        </Container>
-                        <ToastContainer /> 
-                    </>
+                <>
+                    <Container>
+                        <div className='title-container'>
+                            <h1>Pick an avatar as your profile picture.</h1>
+                        </div>
+                        <div className='avatars'>
+                            {avatars.map((avatar, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className={` avatar ${
+                                            selectedAvatar === index ? "selected" : " "
+                                        }`}
+                                    >
+                                        <img
+                                            src={`data:image/svg+xml;base64,${avatar}`}
+                                            alt='avatar'
+                                            onClick={() => setSelectedAvatar(index)}
+                                        />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <button className='setProfile-btn'
+                            onClick={setProfilePircture}
+                        >
+                            Set as Profile Picture
+                        </button>
+                    </Container>
+                    <ToastContainer /> 
+                </>
                 )
             }
 		</>

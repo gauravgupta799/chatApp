@@ -40,7 +40,8 @@ const ChatInput = ({handleSendMsg}) => {
                 type="text" 
                 placeholder="Type your message here..."
                 value={msg} 
-                onChange={(e)=>setMsg(e.target.value)}                 
+                onChange={(e)=>setMsg(e.target.value)} 
+                required                
             />
             <button type="submit">
                 <IoMdSend/>
@@ -57,6 +58,10 @@ const Container = styled.div`
     background-color: #080420;
     padding:0 2rem;
     padding-top: 0.3rem;
+    @media screen and (min-width: 720px) and (max-width:1080px) {
+        padding: 0 1rem;
+        gap:1rem;
+    }
     .button-container{
         display: flex;
         align-items: center;
@@ -119,16 +124,17 @@ const Container = styled.div`
              border:none;
              padding-left: 1rem;
              font-size:1.2rem;
+             caret-color: #9a6df0; 
              &::selection {
                 background-color: #9a86f3;
              }
              &:focus{
                 outline:none;
-             }
+            }
+            
         }
         button{
             padding: 0.3rem 2rem;
-            /* border-radius:2rem; */
             border-top-right-radius: 2rem;
             border-bottom-right-radius: 2rem;
             display:flex;
@@ -136,6 +142,12 @@ const Container = styled.div`
             justify-content: center;
             background-color: #9a86f3;
             border:none;
+            @media screen and (min-width: 720px) and (max-width:1080px) {
+                padding: 0.3rem 1rem;
+                svg{
+                 font-size:1rem;
+                }
+            }
             svg{
                 font-size:2rem;
                 color:white;

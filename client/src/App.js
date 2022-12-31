@@ -4,19 +4,22 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SetAvata from "./pages/SetAvata";
 
+
 function App() {
-  const token = localStorage.getItem('chat-user');
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<Chat/>} />
-        <Route path="/setAvata" element={<SetAvata/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path ="/login" element={<Login/>} />
-      </Routes>
- 
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Chat/>} />
+          <Route path="/setAvata" element={<SetAvata/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path ="/login" element={<Login/>} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
+
 export default App;
+

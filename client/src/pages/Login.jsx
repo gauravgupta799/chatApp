@@ -40,7 +40,6 @@ const Login = () => {
             const {data}= await axios.post(loginRoute,{
                 email, password
             });
-            console.log(data._id);
             if(data.status === false){
                 toastError(data.message);
             }
@@ -102,7 +101,8 @@ const FormContainer = styled.div`
         justify-content: center;
         gap:1rem;
         img{
-            height: 5rem;
+            height: 4rem;
+            border-radius:50%;
         }
         h1{
             color:white;
