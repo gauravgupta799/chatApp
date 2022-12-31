@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import loader from "../assets/loader.gif";
 import axios from "axios";
 import { Buffer } from "buffer";
 import { ToastContainer } from "react-toastify";
@@ -10,7 +9,6 @@ import { setAvatarRoute } from "../utils/ApiRoutes";
 import Loader from "../components/Loader/Loader";
 
 const api ="https://api.multiavatar.com/337453";
-// const api ="https://avatars.dicebear.com/api"
 
 const SetAvata = () => {
 	const [avatars, setAvatars] = useState([]);
@@ -43,11 +41,9 @@ const SetAvata = () => {
             toastError("Please select an avatar.");
         }else{
             const user = await JSON.parse(localStorage.getItem("chat-user"));
-            // console.log("user", user)
             const {data} = await axios.post(`${setAvatarRoute}/${user._id}`,{
                 image:avatars[selectedAvatar],
             });
-            // console.log(data)
             if(data.isSet){
                 user.isAvatarImageSet= true;
                 user.avatarImage = data.image;
@@ -60,9 +56,6 @@ const SetAvata = () => {
         }
 
     }
-
-    // console.log("A", avatars)
-    // console.log("SA", selectedAvatar)
 	return (
 		<>
             { loading ? (
@@ -161,21 +154,5 @@ const Container = styled.div`
         }
     }
 `;
-
-const LoadingContainer = styled.div`
-    display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	background-color: #131324;
-	height: 100vh;
-	width: 100vw;
-    img{
-        width: 400px;
-        height:400px;
-        background-color: #131324;
-        border-radius:50%;
-    }
-`
 
 export default SetAvata;

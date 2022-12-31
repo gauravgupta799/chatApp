@@ -23,7 +23,7 @@ const Container = styled.div`
     position: relative;
     p{
         position: absolute;
-        top:-50%;
+        top:-40%;
         right: -20%;
         display: none;
     }
@@ -32,7 +32,6 @@ const Container = styled.div`
             display: block;
         }
     }
-
 `
 const Button = styled.button`
     display: flex;

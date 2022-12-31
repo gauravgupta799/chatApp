@@ -86,8 +86,8 @@ const Container = styled.div`
   background-color:#222;
   gap:1rem;
   .Container{
-    height: 85vh;
-    width: 85vw;
+    height: 90vh;
+    width: 90vw;
     background-color:#00000076;
     color:white;
     border-radius:4px;

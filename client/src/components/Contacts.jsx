@@ -81,7 +81,7 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        gap:0.5rem;
+        gap:10rem;
         img{
               height: 3rem;
               border-radius: 50%;

@@ -4,7 +4,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SetAvata from "./pages/SetAvata";
 
-
 function App() {
   return (
     <>
